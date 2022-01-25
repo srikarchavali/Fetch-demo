@@ -1,14 +1,24 @@
 import './App.css';
+import  React, {useState, useEffect} from 'react'
 
 function App() {
+  const [fact, setFact] = useState({})
 
-  const handlefetch = async ()=> {
-    const response = await fetch("https://cat-fact-heroukuapp.com./facts/random")
-    console.log(response);
+  useEffect( () => {
+    handleFetch()
+  }, [])
+const handleFetch = async () => {
+    const res = await fetch("https://cat-fact.herokuapp.com/facts/random")
+    console.log(res)
+    const data = await res.json();
+    console.log(data);
+    setFact(data)
   }
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <h1>Hello API's!</h1>
+      <button onClick={handleFetch}>Run the fetch request!</button>
+      <p>{fact.text}</p>
     </div>
   );
 }
